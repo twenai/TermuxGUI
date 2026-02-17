@@ -1,62 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/floatingRoot"
-    android:layout_width="260dp"
+    android:layout_width="290dp"
     android:layout_height="wrap_content"
-    android:background="#DD111827"
+    android:background="@drawable/bg_floating"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="10dp">
 
     <LinearLayout
         android:id="@+id/headerDrag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingBottom="8dp">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="TermuxGUI"
-            android:textColor="#FFFFFF"
+            android:text="⚡ TermuxGUI"
+            android:textColor="@color/tg_text"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnClose"
+            style="@style/Widget.Material3.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="X" />
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            android:minWidth="40dp"
+            android:text="✕"
+            app:backgroundTint="@color/tg_danger" />
     </LinearLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnBattery"
+        style="@style/Widget.Material3.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Battery Status" />
+        android:text="🔋 Battery Status"
+        app:backgroundTint="@color/tg_primary" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnDevice"
+        style="@style/Widget.Material3.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Device Info" />
+        android:layout_marginTop="8dp"
+        android:text="📱 Device Info"
+        app:backgroundTint="@color/tg_primary" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnWifi"
+        style="@style/Widget.Material3.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="WiFi Info" />
+        android:layout_marginTop="8dp"
+        android:text="📶 WiFi Info"
+        app:backgroundTint="@color/tg_primary" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnToast"
+        style="@style/Widget.Material3.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Toast (Termux API)" />
+        android:layout_marginTop="8dp"
+        android:text="💬 Toast (Termux API)"
+        app:backgroundTint="@color/tg_success" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnStorage"
+        style="@style/Widget.Material3.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Setup Storage" />
-
+        android:layout_marginTop="8dp"
+        android:text="📂 Setup Storage"
+        app:backgroundTint="@color/tg_primary_dark" />
 </LinearLayout>

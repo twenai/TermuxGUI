@@ -1,49 +1,44 @@
 # TermuxGUI Android Project
 
-Project ini sekarang sudah diubah menjadi **project Android native (Kotlin)** untuk membuat **floating window menu** yang dapat mengirim command ke Termux.
+Project ini adalah **Android native app (Kotlin)** dengan **floating window menu** untuk mengirim command shell ke Termux.
 
-## Fitur
-- Floating menu (overlay) yang bisa digeser.
-- Tombol fungsi cepat untuk command Termux:
-  - Battery status
-  - Device info
-  - WiFi connection info
-  - Toast via Termux API
-  - Setup storage
-- Integrasi ke Termux memakai `RunCommandService` (`com.termux.RUN_COMMAND`).
-- Siap dibuild via GitHub Actions.
+## Fitur Utama
+- Floating menu modern yang bisa digeser.
+- Splash screen modern.
+- Kontrol cepat dari Main Menu modern:
+  - Buka izin overlay
+  - Start/Stop floating menu
+  - Buka aplikasi Termux
+- Integrasi ke Termux via `com.termux.RUN_COMMAND` (`RunCommandService`).
+- Build APK per arsitektur ABI + universal di GitHub Actions.
 
-## Struktur
-- `app/` : source Android app.
-- `.github/workflows/android-build.yml` : workflow build APK debug.
-- `docs/analisis-termux-v0.118.3.md` : dokumen analisis sebelumnya.
+## Izin (Permissions)
+Manifest sudah menambahkan izin/integrasi yang dibutuhkan untuk skenario TermuxGUI:
+- `SYSTEM_ALERT_WINDOW` (floating menu)
+- `com.termux.permission.RUN_COMMAND` (kirim command ke Termux)
+- `INTERNET`
+- `ACCESS_NETWORK_STATE`
+- `WAKE_LOCK`
+- `FOREGROUND_SERVICE`
+- `POST_NOTIFICATIONS`
+- `queries` untuk `com.termux` dan `com.termux.api`
 
-## Cara Build Lokal
-1. Install Android SDK + Gradle + JDK 17.
+> Catatan: beberapa izin tetap harus disetujui user di perangkat (misalnya overlay/notification) dan Termux/Termux:API harus terpasang.
+
+## Build Lokal
+1. Install Android SDK + JDK 17 + Gradle.
 2. Jalankan:
    ```bash
    gradle wrapper
    ./gradlew :app:assembleDebug
    ```
 
-## Cara Pakai Aplikasi
-1. Install APK.
-2. Buka aplikasi `TermuxGUI`.
-3. Beri izin overlay (draw over other apps).
-4. Klik **Start Floating Menu**.
-5. Pastikan aplikasi **Termux** dan **Termux:API** sudah terpasang agar command bisa berjalan.
+## GitHub Actions Output APK (Tidak Digabung)
+Workflow Actions akan menghasilkan artifact terpisah agar user langsung pilih sesuai perangkat:
+- `termuxgui-debug-arm64-v8a` → Android 64-bit ARM
+- `termuxgui-debug-armeabi-v7a` → Android 32-bit ARM
+- `termuxgui-debug-x86` → Intel/Emulator 32-bit
+- `termuxgui-debug-x86_64` → Intel/Emulator 64-bit
+- `termuxgui-debug-universal` → universal (lebih besar)
 
-## Catatan Penting
-- Service menjalankan command melalui package `com.termux`, jadi environment Termux harus tersedia.
-- Untuk distribusi release, Anda bisa lanjut tambah signing config di Gradle.
-
-
-## GitHub Actions Output APK (Pilihan ABI)
-Workflow akan menghasilkan beberapa APK agar user bisa menyesuaikan perangkat:
-- `arm64-v8a` (Android 64-bit ARM)
-- `armeabi-v7a` (Android 32-bit ARM)
-- `x86`
-- `x86_64`
-- `universal` (semua ABI, file lebih besar)
-
-Di tab **Actions**, lihat artifact `termuxgui-debug-apks` dan pilih file APK sesuai device.
+Di tab **Actions**, lihat **Summary** untuk panduan pilihan ABI, lalu download artifact yang sesuai.

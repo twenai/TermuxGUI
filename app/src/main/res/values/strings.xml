@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">TermuxGUI</string>
+    <string name="splash_title">TermuxGUI</string>
+    <string name="splash_subtitle">Floating Command Center</string>
+    <string name="main_title">TermuxGUI Modern</string>
+    <string name="main_subtitle">Kelola floating menu dan kirim command shell ke Termux dengan cepat.</string>
 </resources>

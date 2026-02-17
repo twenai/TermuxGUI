@@ -33,24 +33,49 @@ jobs:
           echo "APK generated:"
           find app/build/outputs/apk/debug -name "*.apk" -print | sort
 
-      - name: Upload APK artifacts
+      # Upload per-ABI (tidak digabung) agar user langsung pilih sesuai perangkat
+      - name: Upload arm64-v8a APK
         uses: actions/upload-artifact@v4
         with:
-          name: termuxgui-debug-apks
-          path: app/build/outputs/apk/debug/*.apk
+          name: termuxgui-debug-arm64-v8a
+          path: app/build/outputs/apk/debug/*arm64-v8a-debug.apk
 
-      - name: Build summary (ABI selector)
+      - name: Upload armeabi-v7a APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: termuxgui-debug-armeabi-v7a
+          path: app/build/outputs/apk/debug/*armeabi-v7a-debug.apk
+
+      - name: Upload x86 APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: termuxgui-debug-x86
+          path: app/build/outputs/apk/debug/*x86-debug.apk
+
+      - name: Upload x86_64 APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: termuxgui-debug-x86_64
+          path: app/build/outputs/apk/debug/*x86_64-debug.apk
+
+      - name: Upload universal APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: termuxgui-debug-universal
+          path: app/build/outputs/apk/debug/*universal-debug.apk
+
+      - name: Build summary (langsung pilih APK sesuai perangkat)
         run: |
           {
             echo "## 📦 TermuxGUI APK Build Result"
             echo
-            echo "Silakan pilih APK sesuai arsitektur perangkat Android Anda:"
+            echo "Silakan **langsung pilih artifact** sesuai perangkat Anda (tidak digabung):"
             echo
-            echo "- **arm64-v8a (64-bit ARM)** → mayoritas HP Android modern"
-            echo "- **armeabi-v7a (32-bit ARM)** → perangkat Android lama"
-            echo "- **x86** → emulator/perangkat Intel 32-bit"
-            echo "- **x86_64** → emulator/perangkat Intel 64-bit"
-            echo "- **universal** → mendukung banyak arsitektur, ukuran file lebih besar"
+            echo "- **termuxgui-debug-arm64-v8a** → Android 64-bit ARM (mayoritas HP modern)"
+            echo "- **termuxgui-debug-armeabi-v7a** → Android 32-bit ARM"
+            echo "- **termuxgui-debug-x86** → Intel/Emulator 32-bit"
+            echo "- **termuxgui-debug-x86_64** → Intel/Emulator 64-bit"
+            echo "- **termuxgui-debug-universal** → untuk banyak arsitektur (ukuran lebih besar)"
             echo
             echo "### Generated files"
             find app/build/outputs/apk/debug -name "*.apk" -print | sed 's/^/- `/' | sed 's/$/`/' | sort

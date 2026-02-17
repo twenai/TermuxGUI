@@ -1,17 +1,16 @@
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.twenxci">
 
     <application
-        android:label="TwenX"
+        android:allowBackup="true"
+        android:label="TwenXCI"
         android:theme="@style/Theme.Material3.DayNight.NoActionBar">
 
-        <activity android:name=".MainActivity"
-            android:exported="true">
+        <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 

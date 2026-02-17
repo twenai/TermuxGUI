@@ -1,12 +1,14 @@
 
-apply plugin: 'com.android.application'
+plugins {
+    id 'com.android.application'
+}
 
 android {
-    namespace "com.twen.xai"
+    namespace 'com.twenxci'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.twen.xai"
+        applicationId "com.twenxci"
         minSdk 24
         targetSdk 34
         versionCode 1
@@ -18,9 +20,17 @@ android {
             minifyEnabled false
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
 }
 
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.11.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+    implementation 'com.google.code.gson:gson:2.10.1'
 }

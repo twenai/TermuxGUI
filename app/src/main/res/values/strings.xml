@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">TermuxGUI</string>
+    <string name="main_status_message">TermuxGUI berhasil dimuat</string>
+</resources>

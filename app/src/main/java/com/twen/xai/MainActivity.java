@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         MaterialButton button = new MaterialButton(this);
-        button.setText("TwenX Ready");
+        button.setText("TwenX CI Fixed ✅");
         setContentView(button);
     }
 }

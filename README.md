@@ -36,3 +36,14 @@ Project ini sekarang sudah diubah menjadi **project Android native (Kotlin)** un
 ## Catatan Penting
 - Service menjalankan command melalui package `com.termux`, jadi environment Termux harus tersedia.
 - Untuk distribusi release, Anda bisa lanjut tambah signing config di Gradle.
+
+
+## GitHub Actions Output APK (Pilihan ABI)
+Workflow akan menghasilkan beberapa APK agar user bisa menyesuaikan perangkat:
+- `arm64-v8a` (Android 64-bit ARM)
+- `armeabi-v7a` (Android 32-bit ARM)
+- `x86`
+- `x86_64`
+- `universal` (semua ABI, file lebih besar)
+
+Di tab **Actions**, lihat artifact `termuxgui-debug-apks` dan pilih file APK sesuai device.

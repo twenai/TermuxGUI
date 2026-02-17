@@ -3,6 +3,7 @@ name: Android Build
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 jobs:
   build:
@@ -18,11 +19,39 @@ jobs:
           distribution: temurin
           java-version: '17'
 
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Generate Gradle Wrapper
-        run: gradle wrapper
+      - name: Build Debug APK (ABI splits + universal)
+        run: gradle :app:assembleDebug --no-daemon
 
-      - name: Build Debug APK
-        run: ./gradlew :app:assembleDebug
+      - name: List APK outputs
+        run: |
+          echo "APK generated:"
+          find app/build/outputs/apk/debug -name "*.apk" -print | sort
+
+      - name: Upload APK artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: termuxgui-debug-apks
+          path: app/build/outputs/apk/debug/*.apk
+
+      - name: Build summary (ABI selector)
+        run: |
+          {
+            echo "## 📦 TermuxGUI APK Build Result"
+            echo
+            echo "Silakan pilih APK sesuai arsitektur perangkat Android Anda:"
+            echo
+            echo "- **arm64-v8a (64-bit ARM)** → mayoritas HP Android modern"
+            echo "- **armeabi-v7a (32-bit ARM)** → perangkat Android lama"
+            echo "- **x86** → emulator/perangkat Intel 32-bit"
+            echo "- **x86_64** → emulator/perangkat Intel 64-bit"
+            echo "- **universal** → mendukung banyak arsitektur, ukuran file lebih besar"
+            echo
+            echo "### Generated files"
+            find app/build/outputs/apk/debug -name "*.apk" -print | sed 's/^/- `/' | sed 's/$/`/' | sort
+          } >> "$GITHUB_STEP_SUMMARY"

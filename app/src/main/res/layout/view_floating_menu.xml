@@ -16,11 +16,18 @@
         android:orientation="horizontal"
         android:paddingBottom="8dp">
 
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_floating_logo"
+            android:contentDescription="@string/app_name" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="⚡ TermuxGUI"
+            android:layout_marginStart="8dp"
+            android:text="TermuxGUI"
             android:textColor="@color/tg_text"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -44,7 +51,7 @@
         style="@style/Widget.Material3.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="🔋 Battery Status"
+        android:text="Battery Status"
         app:backgroundTint="@color/tg_primary" />
 
     <com.google.android.material.button.MaterialButton
@@ -53,7 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="📱 Device Info"
+        android:text="Device Info"
         app:backgroundTint="@color/tg_primary" />
 
     <com.google.android.material.button.MaterialButton
@@ -62,7 +69,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="📶 WiFi Info"
+        android:text="WiFi Info"
         app:backgroundTint="@color/tg_primary" />
 
     <com.google.android.material.button.MaterialButton
@@ -71,7 +78,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="💬 Toast (Termux API)"
+        android:text="Toast (Termux API)"
         app:backgroundTint="@color/tg_success" />
 
     <com.google.android.material.button.MaterialButton
@@ -80,6 +87,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="📂 Setup Storage"
+        android:text="Setup Storage"
         app:backgroundTint="@color/tg_primary_dark" />
 </LinearLayout>

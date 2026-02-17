@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/floatingRoot"
+    android:layout_width="260dp"
+    android:layout_height="wrap_content"
+    android:background="#DD111827"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <LinearLayout
+        android:id="@+id/headerDrag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="TermuxGUI"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="X" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnBattery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Battery Status" />
+
+    <Button
+        android:id="@+id/btnDevice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Device Info" />
+
+    <Button
+        android:id="@+id/btnWifi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="WiFi Info" />
+
+    <Button
+        android:id="@+id/btnToast"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Toast (Termux API)" />
+
+    <Button
+        android:id="@+id/btnStorage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Setup Storage" />
+
+</LinearLayout>

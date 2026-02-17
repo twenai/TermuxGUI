@@ -1,0 +1,10 @@
+# Build outputs
+.gradle/
+build/
+app/build/
+
+# Local SDK config
+local.properties
+
+# Exclude binary Gradle wrapper jar for environments that disallow binary files in PRs
+gradle/wrapper/gradle-wrapper.jar

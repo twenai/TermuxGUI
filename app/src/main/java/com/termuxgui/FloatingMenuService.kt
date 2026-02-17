@@ -1,5 +1,8 @@
 package com.termuxgui
 
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.app.Service
 import android.content.Intent
 import android.graphics.PixelFormat
@@ -12,6 +15,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.Toast
+import androidx.core.app.NotificationCompat
 
 class FloatingMenuService : Service() {
 
@@ -22,32 +26,46 @@ class FloatingMenuService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+        startAsForegroundService()
 
-        windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
-        val inflater = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        floatingView = inflater.inflate(R.layout.view_floating_menu, null)
+        try {
+            windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
+            val inflater = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            floatingView = inflater.inflate(R.layout.view_floating_menu, null)
 
-        val layoutType = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
-        } else {
-            WindowManager.LayoutParams.TYPE_PHONE
+            val layoutType = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+            } else {
+                WindowManager.LayoutParams.TYPE_PHONE
+            }
+
+            val params = WindowManager.LayoutParams(
+                WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.WRAP_CONTENT,
+                layoutType,
+                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                PixelFormat.TRANSLUCENT
+            ).apply {
+                gravity = Gravity.TOP or Gravity.START
+                x = 50
+                y = 200
+            }
+
+            windowManager.addView(floatingView, params)
+            setupDrag(floatingView!!, params)
+            setupActions(floatingView!!)
+        } catch (exception: Exception) {
+            Toast.makeText(
+                this,
+                getString(R.string.floating_overlay_error),
+                Toast.LENGTH_LONG
+            ).show()
+            stopSelf()
         }
+    }
 
-        val params = WindowManager.LayoutParams(
-            WindowManager.LayoutParams.WRAP_CONTENT,
-            WindowManager.LayoutParams.WRAP_CONTENT,
-            layoutType,
-            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-            PixelFormat.TRANSLUCENT
-        ).apply {
-            gravity = Gravity.TOP or Gravity.START
-            x = 50
-            y = 200
-        }
-
-        windowManager.addView(floatingView, params)
-        setupDrag(floatingView!!, params)
-        setupActions(floatingView!!)
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        return START_STICKY
     }
 
     override fun onDestroy() {
@@ -126,5 +144,28 @@ class FloatingMenuService : Service() {
                 Toast.LENGTH_LONG
             ).show()
         }
+    }
+
+    private fun startAsForegroundService() {
+        val channelId = "termuxgui_floating_channel"
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                channelId,
+                getString(R.string.floating_channel_name),
+                NotificationManager.IMPORTANCE_LOW
+            )
+            val notificationManager = getSystemService(NotificationManager::class.java)
+            notificationManager.createNotificationChannel(channel)
+        }
+
+        val notification: Notification = NotificationCompat.Builder(this, channelId)
+            .setSmallIcon(android.R.drawable.stat_notify_more)
+            .setContentTitle(getString(R.string.floating_notification_title))
+            .setContentText(getString(R.string.floating_notification_text))
+            .setOngoing(true)
+            .setPriority(NotificationCompat.PRIORITY_LOW)
+            .build()
+
+        startForeground(1001, notification)
     }
 }

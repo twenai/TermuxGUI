@@ -9,6 +9,7 @@ import android.provider.Settings
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.android.material.button.MaterialButton
 
 class MainActivity : AppCompatActivity() {
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<MaterialButton>(R.id.btnStart).setOnClickListener {
             if (canDrawOverlays()) {
-                startService(Intent(this, FloatingMenuService::class.java))
+                ContextCompat.startForegroundService(this, Intent(this, FloatingMenuService::class.java))
                 Toast.makeText(this, "Floating menu started", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "Aktifkan izin overlay dulu", Toast.LENGTH_SHORT).show()
